@@ -127,7 +127,7 @@ export default class extends Component {
   }
 
   handleValueChange(v, all) {
-    if (!all.AccessKeyId.trim() && localStorage.getItem('signformValue')) {
+    if (!(all.AccessKeyId && all.AccessKeyId.trim()) && localStorage.getItem('signformValue')) {
       this.formRef.current.setFieldsValue(JSON.parse(localStorage.getItem('signformValue')));
       return;
     }
@@ -140,7 +140,7 @@ export default class extends Component {
       formValue: this.formRef.current.getFieldsValue(),
     });
 
-    localStorage.setItem('signformValue', JSON.stringify(formValue))
+    localStorage.setItem('signformValue', JSON.stringify(this.formRef.current.getFieldsValue()))
   }
 
   resetError() {
