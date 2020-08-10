@@ -84,7 +84,7 @@ export default class HeadersInput extends Component {
         />
         <Button onClick={this.add.bind(this)}>+</Button>
         <Button
-          disabled={_.key === "date"}
+          // disabled={_.key === "date"}
           onClick={() => {
             this.del(_index);
           }}

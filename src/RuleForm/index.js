@@ -133,7 +133,8 @@ export default class extends Component {
     }
     if (v.Date) {
       const headers = this.formRef.current.getFieldValue("headers");
-      headers[0] = Object.assign(headers[0], { value: v.Date });
+      const dateIndex = headers.findIndex(_ => _.key === 'date')
+      dateIndex !== -1 && (headers[dateIndex] = Object.assign(headers[dateIndex], { value: v.Date }));
       this.formRef.current.setFieldsValue(Object.assign(all, { headers }));
     }
     this.setState({
