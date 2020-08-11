@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import styles from "./index.less";
-import { Input, Button } from "antd";
+import React, { Component } from 'react';
+import styles from './index.less';
+import { Input, Button } from 'antd';
 
 export default class HeadersInput extends Component {
   constructor(props) {
@@ -8,8 +8,8 @@ export default class HeadersInput extends Component {
     this.state = {
       value: props.value || [
         {
-          key: "date",
-          value: "",
+          key: 'date',
+          value: '',
         },
       ],
     };
@@ -43,15 +43,33 @@ export default class HeadersInput extends Component {
       value: [
         ...this.state.value,
         {
-          key: "",
-          value: "",
+          key: '',
+          value: '',
         },
       ],
     });
   }
 
   del(index) {
-    if (this.state.value.length < 2) return;
+    if (this.state.value.length < 2) {
+      this.setState({
+        value: [
+          {
+            key: '',
+            value: '',
+          },
+        ],
+      });
+      if (this.props.onChange) {
+        this.props.onChange([
+          {
+            key: '',
+            value: '',
+          },
+        ]);
+      }
+      return;
+    }
     const cloneValue = [...this.state.value];
     cloneValue.splice(index, 1);
     this.setState({
@@ -68,19 +86,19 @@ export default class HeadersInput extends Component {
         <Input
           addonBefore="x-oss-"
           value={_.key}
-          disabled={_.key === "date"}
+          disabled={_.key === 'date'}
           onChange={(v) => {
-            this.handleChange(_index, v.target.value, "key");
+            this.handleChange(_index, v.target.value, 'key');
           }}
           placeholder="请求头，去除x-oss-后的部分"
         />
         <Input
           value={_.value}
-          disabled={_.key === "date"}
+          disabled={_.key === 'date'}
           onChange={(v) => {
-            this.handleChange(_index, v.target.value, "value");
+            this.handleChange(_index, v.target.value, 'value');
           }}
-          placeholder={_.key === "date" ? "" : "值"}
+          placeholder={_.key === 'date' ? '' : '值'}
         />
         <Button onClick={this.add.bind(this)}>+</Button>
         <Button
